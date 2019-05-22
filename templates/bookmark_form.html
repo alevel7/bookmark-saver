@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}
+Thermos --{{title}}
+{% endblock title %}
+
+{% block content %}
+<ul>
+    {% for error in form.url.errors %}
+        <li class='alert alert-{{category}}'>{{ error }}</li>
+    {% endfor%}
+</ul>
+<form action="" method="POST">
+    {{ form.hidden_tag() }}
+            {{ wtf.form_field(form.url)}}
+            {{ wtf.form_field(form.description )}}
+            <button type="submit" class="btn btn-info">Submit</button>
+</form>
+{% endblock content %}
+
+{% block sidebar %} {% endblock sidebar%}
+
+
+
+<!-- <p> Please enter your bookmark here: </p>
+        {{ form.url(size=50) }}
+
+        <ul>
+            {% for error in form.url.errors %}
+                <li class='alert alert-danger'>{{ error }}</li>
+            {% endfor%}
+        </ul>
+        <p>Add an optional description</p>
+        {{ form.description(size=50) }} -->

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}
+
+{% endblock title %}
+
+{% block content %}
+<div>
+    <h1>Bookmarks for {{user.username}} </h1>
+
+    {% if user.bookmarks.__len__() > 0 %}
+    {% with bookmarks = user.bookmarks %}
+    {% include 'bookmark_list.html' %}
+    {% endwith %}
+    {% else %}
+    This User has not added any bookmark yet
+    {% endif %}
+
+</div>
+
+{% endblock content %}
+
+{% block sidebar %} {% endblock sidebar %}

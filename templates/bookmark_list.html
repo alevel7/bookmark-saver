@@ -1,0 +1,25 @@
+<ul class="list-group">
+    {% for bookmark in bookmarks %}
+    <li class="list-group-item list-group-item-dark">
+        <a href="{{ bookmark.url }}" class="list-group-item list-group-item-action">
+            <h3 class="description">
+                {{ bookmark.description|truncate(50, killwords=True) }}
+            </h3>
+            <span class="url">
+                {{ bookmark.url | truncate(50, killwords=True)}}
+            </span>
+        </a>
+        <div class="info">
+            <br>
+            Added by <a href="{{ url_for('user', username=bookmark.user.username) }}">
+                {{ bookmark.user.username }}
+            </a>
+            {{ moment(bookmark.date).fromNow() }}.
+            {{bookmark.date}}
+        </div>
+        {% if current_user == bookmark.user %}
+            <a href="{{ url_for('edit_bookmark', bookmark_id=bookmark.id) }}">Edit</a>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>

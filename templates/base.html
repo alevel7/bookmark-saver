@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }} ">
+    <title>{% block title %} {% endblock %}</title>
+</head>
+
+<body>
+    <header>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="container">
+            <div class="navbar-header">
+                    <h1><a href="{{ url_for('index') }}" class="navbar-brand">BOOKMARKER</a> </h1>
+            </div>
+        </div>
+        
+        <ul class="navbar-nav">
+            <li  class="nav-item"><a href="{{ url_for('add') }}" class="nav-link btn btn-info" > Add url</a></li>
+            {% if current_user.is_authenticated %}
+                <li  class="nav-item"><a href="{{url_for('logout') }}" class="nav-link btn btn-info" > log out</a></li>
+            {% else %}
+            <li  class="nav-item"><a href="{{ url_for('login') }}" class="nav-link btn btn-secondary" > Log in</a></li>
+             <li  class="nav-item"><a href="{{ url_for('signup') }}" class="nav-link btn btn-secondary" > sign up</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+      
+    </header>
+    <div class="container">
+        <article>
+            {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{category}}">
+                <div class="container">
+                    {{message}}
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </article>
+        <div class="d-flex">
+            {% block content %}{% endblock %}
+            {% block sidebar %}
+            <aside class="jumbotron">
+                <h3>aside</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, nulla. Optio aliquid natus quas laborum
+                    dignissimos autem odio exercitationem animi beatae velit officia soluta, labore saepe delectus
+                    deleniti
+                    dolor odit?</p>
+
+            </aside>
+            {% endblock %}
+        </div>
+
+    </div>
+    
+    {{ moment.include_jquery() }}
+    {{ moment.include_moment() }}
+</body>
+
+</html>
